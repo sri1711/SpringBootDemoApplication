@@ -52,7 +52,6 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
                     sh '''
-                        cd java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests
                         git config user.email "sriviveknathsr@gmail.com"
                         git config user.name "SRIVIVEKNATH S R"
                         sed -i '' "s/replaceImageTag/${BUILD_NUMBER}/g" deployment.yml
