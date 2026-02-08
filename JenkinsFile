@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image '3.9.12-eclipse-temurin-21-alpine'
+      image 'maven:3.9.12-eclipse-temurin-21-alpine'
       args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
     }
   }
