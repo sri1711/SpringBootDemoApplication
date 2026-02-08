@@ -54,9 +54,12 @@ pipeline {
                     sh '''
                         git config user.email "sriviveknathsr@gmail.com"
                         git config user.name "SRIVIVEKNATH S R"
+                        git fetch origin master
+                        git checkout -B master origin/master
                         sed -i '' "s/replaceImageTag/${BUILD_NUMBER}/g" deployment-manifests/deployment.yml
                         git add deployment-manifests/deployment.yml
-                        git commit -m "Update deployment image to version ${BUILD_NUMBER}"
+                        git diff --cached --quiet || git commit -m "Update deployment image to version ${BUILD_NUMBER}"
+
                         git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:master
                     '''
                 }
