@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Boot Demo - API Dashboard</title>
+    <meta name="description" content="Interactive dashboard for Spring Boot Demo Application with real-time health monitoring and API testing">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-gradient"></div>
+    
+    <main class="container">
+        <header class="header">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="40" height="40" rx="10" fill="url(#gradient)"/>
+                        <path d="M20 10L30 20L20 30L10 20L20 10Z" fill="white" opacity="0.9"/>
+                        <defs>
+                            <linearGradient id="gradient" x1="0" y1="0" x2="40" y2="40">
+                                <stop offset="0%" stop-color="#667eea"/>
+                                <stop offset="100%" stop-color="#764ba2"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div>
+                    <h1>Spring Boot Demo</h1>
+                    <p class="subtitle">API Dashboard & Health Monitor</p>
+                </div>
+            </div>
+            <div class="status-badge" id="globalStatus">
+                <span class="status-dot"></span>
+                <span class="status-text">Checking...</span>
+            </div>
+        </header>
+
+        <div class="dashboard-grid">
+            <!-- API Test Card -->
+            <section class="card api-card">
+                <div class="card-header">
+                    <h2>🚀 API Endpoint Test</h2>
+                    <span class="badge">GET /</span>
+                </div>
+                <div class="card-body">
+                    <p class="description">Test the main greeting endpoint and see the response in real-time.</p>
+                    <button class="btn btn-primary" id="testApiBtn">
+                        <span class="btn-text">Test API</span>
+                        <span class="btn-icon">→</span>
+                    </button>
+                    <div class="response-container" id="apiResponse">
+                        <div class="response-placeholder">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                                <circle cx="24" cy="24" r="20" stroke="currentColor" stroke-width="2" opacity="0.2"/>
+                                <path d="M24 14V24L30 30" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <p>Click "Test API" to see the response</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Health Monitor Card -->
+            <section class="card health-card">
+                <div class="card-header">
+                    <h2>💚 Health Monitor</h2>
+                    <span class="badge">Actuator</span>
+                </div>
+                <div class="card-body">
+                    <div class="health-status" id="healthStatus">
+                        <div class="health-indicator">
+                            <div class="pulse-ring"></div>
+                            <div class="pulse-dot"></div>
+                        </div>
+                        <div class="health-info">
+                            <h3 id="healthStatusText">Checking...</h3>
+                            <p id="healthStatusDesc">Fetching health data...</p>
+                        </div>
+                    </div>
+                    <div class="health-details" id="healthDetails">
+                        <div class="detail-item">
+                            <span class="detail-label">Endpoint</span>
+                            <span class="detail-value">/actuator/health</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Last Check</span>
+                            <span class="detail-value" id="lastCheck">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Auto-refresh</span>
+                            <span class="detail-value">
+                                <label class="toggle">
+                                    <input type="checkbox" id="autoRefresh" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Endpoints Card -->
+            <section class="card endpoints-card">
+                <div class="card-header">
+                    <h2>📡 Available Endpoints</h2>
+                </div>
+                <div class="card-body">
+                    <ul class="endpoints-list">
+                        <li class="endpoint-item">
+                            <div class="endpoint-method get">GET</div>
+                            <div class="endpoint-path">/</div>
+                            <div class="endpoint-desc">Main greeting endpoint</div>
+                        </li>
+                        <li class="endpoint-item">
+                            <div class="endpoint-method get">GET</div>
+                            <div class="endpoint-path">/actuator</div>
+                            <div class="endpoint-desc">Actuator root</div>
+                        </li>
+                        <li class="endpoint-item">
+                            <div class="endpoint-method get">GET</div>
+                            <div class="endpoint-path">/actuator/health</div>
+                            <div class="endpoint-desc">Health check endpoint</div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Stats Card -->
+            <section class="card stats-card">
+                <div class="card-header">
+                    <h2>📊 Statistics</h2>
+                </div>
+                <div class="card-body">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value" id="apiCallCount">0</div>
+                            <div class="stat-label">API Calls</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="healthCheckCount">0</div>
+                            <div class="stat-label">Health Checks</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="uptime">100%</div>
+                            <div class="stat-label">Uptime</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer class="footer">
+            <p>Built with Spring Boot 4.0.2 • Java 21 • Powered by Modern Web Technologies</p>
+        </footer>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
