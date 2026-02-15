@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        PATH = "/opt/homebrew/bin:/Users/s0s0qhm/.rd/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH" // Docker CLI path
+        // PATH = "/opt/homebrew/bin:/Users/s0s0qhm/.rd/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH" // Docker CLI path
         DOCKER_IMAGE = "sri1711/spring-boot-demo:${BUILD_NUMBER}"
         SONAR_URL = "http://34.66.104.115:9000/"
         GIT_REPO_NAME = "SpringBootDemoApplication"
