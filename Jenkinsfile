@@ -56,7 +56,7 @@ pipeline {
                         git config user.name "SRIVIVEKNATH S R"
                         git fetch origin master
                         git checkout -B master origin/master
-                        sed -i '' "s/replaceImageTag/${BUILD_NUMBER}/g" deployment-manifests/deployment.yml
+                        sed -i 's/replaceImageTag/${BUILD_NUMBER}/g' deployment-manifests/deployment.yml
                         git add deployment-manifests/deployment.yml
                         git diff --cached --quiet || git commit -m "Update deployment image to version ${BUILD_NUMBER}"
 
